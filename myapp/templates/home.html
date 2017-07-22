@@ -43,17 +43,17 @@
             <p class="text-center text-16">Biggest online community for Creative Arts.</p>
             <form class = "loginbox" method="post" id="loginbox">
                 {% csrf_token %}
-              <input class = "input-default top-curve" placeholder="Username" spellcheck="false" type="text"/>
-              <input class = "input-default bottom-curve" placeholder="Password" spellcheck="false" type="password"/>
+              <input class = "input-default top-curve" placeholder="Username" name="username" spellcheck="false"  value="{{ name }}" type="text"/>
+              <input class = "input-default bottom-curve" placeholder="Password" name="password" spellcheck="false" type="password"  value="{{ password }}"/>
               <button class="submit login-btn">Log In</button><br/><br/>
               <a class="home-link" onclick="signup()">Create New Account</a>
             </form>
             <form class = "signupbox" method="post" id="signupbox">
                 {% csrf_token %}
-              <input class = "input-default top-curve" placeholder="Full Name" spellcheck="false" type="text"/>
-              <input class = "input-default" placeholder="Email" spellcheck="false" type="email"/>
-              <input class = "input-default" placeholder="Username" spellcheck="false" type="text"/>
-              <input class = "input-default bottom-curve" placeholder="Password" spellcheck="false" type="password"/>
+              <input class = "input-default top-curve" placeholder="Full Name" spellcheck="false" type="text" value="{{ name }}"  name="name"/>
+              <input class = "input-default" placeholder="Email" spellcheck="false" type="email"  value="{{ email }}"  name="email"/>
+              <input class = "input-default" placeholder="Username" spellcheck="false" type="text"  value="{{ username }}"  name="username"/>
+              <input class = "input-default bottom-curve" placeholder="Password" spellcheck="false" type="password"  value="{{ password }}"  name="password"/>
               <button class="submit login-btn">Signup</button><br/><br/>
             </form>
           </center>
