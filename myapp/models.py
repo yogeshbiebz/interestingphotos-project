@@ -7,7 +7,9 @@ from django.db import models
 
 
 class User(models.Model):
-    name = models.CharField(max_length=30)
-    contact = models.IntegerField(max_length=13)
-    age = models.IntegerField(max_length=3)
-    created_on = models.DateTimeField(auto_now_add=True)
+  email = models.EmailField()
+  name = models.CharField(max_length=30)
+  username = models.CharField(max_length=20)
+  password = models.CharField(max_length=13)
+  created_on = models.DateTimeField(auto_now_add=True)
+  updated_on = models.DateTimeField(auto_now=True)

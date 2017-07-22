@@ -1,0 +1,122 @@
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #999;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #999;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #999;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #999;
+}
+body{
+  background-position: center;
+  background: url('img/car2.jpg');
+  background-size: cover;
+}
+.text-16{
+  font-size: 14px;
+  font-family: helvetica;
+  color: #fff;
+}
+.head-text{
+  font-size:80px;
+  font-weight: bold;
+  color: #444;
+  font-weight: normal;
+  color:#fff;
+}
+.logo-font{
+  font-family: 'Racing Sans One', cursive;
+}
+.input-default{
+  padding:10px;
+  width: 100%;
+  font-size: 17px;
+  outline: none;
+  margin: 0px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+
+}
+.all-curve{
+  border-radius: 3px;
+  margin-top: 2px;
+}
+.top-curve{
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom: 1px solid #ccc;
+
+}
+.bottom-curve{
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.login-btn{
+  padding: 5px;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 5px;
+  font-size: 20px;
+  background-color: #3b88ff;
+  outline: none;
+  color: #fff;
+  border-radius: 3px;
+  border: none;
+  -webkit-transition: 0.2s linear;
+}
+.login-btn:hover{
+  background-color: #3ba9ff;
+}
+.wrap{
+    margin-top: 100px;
+    padding:0px 10px;
+}
+.loginbox{
+  width: 400px;
+  padding: 30px;
+  display: block;
+  border-radius: 5px;
+  background: rgba(238, 238, 238, 0);
+  padding: 10px 20px;
+  background-position: center;
+  -webkit-transition:linear 0.2s;
+}
+.home-link{
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+}
+.home-link:hover{
+  color: #fff;
+  text-decoration: none;
+}
+.searchform{
+  padding: 10px;
+}
+.searchform input{
+  width: 400px;
+  font-size: 16px;
+  border-radius: 3px;
+  border: none;
+  padding: 5px 10px;
+  padding-left: 35px;
+  outline: none;
+  background: #fff url("img/search.png") no-repeat 10px 50%;
+  opacity: 0.5;
+  background-size: 16px 16px;
+}
+.signupbox{
+  width: 400px;
+  padding: 30px;
+  display: none;
+  border-radius: 5px;
+  background: rgba(238, 238, 238, 0);
+  padding: 10px 20px;
+  background-position: center;
+  -webkit-transition:linear 0.2s;
+}
