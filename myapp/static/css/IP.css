@@ -15,6 +15,9 @@ body{
   background: url('img/car2.jpg');
   background-size: cover;
 }
+.greybg{
+  background-color: #eee;
+}
 .text-16{
   font-size: 14px;
   font-family: helvetica;
@@ -30,6 +33,12 @@ body{
 .logo-font{
   font-family: 'Racing Sans One', cursive;
 }
+
+.upload{
+  width: 400px;
+  display: block;
+}
+
 .input-default{
   padding:10px;
   width: 100%;
@@ -69,6 +78,14 @@ body{
 }
 .login-btn:hover{
   background-color: #3ba9ff;
+}
+
+.disp_error, .disp_error2{
+  margin-top: 10px;
+  background-color: red;
+  color: #fff;
+  width: 100%;
+  /*padding: 5px;*/
 }
 .wrap{
     margin-top: 100px;
