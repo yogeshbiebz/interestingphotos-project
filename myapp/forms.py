@@ -1,5 +1,5 @@
 from django import forms
-from models import User
+from models import User, Post
 
 
 class SignUp(forms.ModelForm):
@@ -12,3 +12,7 @@ class LogIn(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+class Upload(forms.ModelForm):
+    class Meta:
+        model = Post

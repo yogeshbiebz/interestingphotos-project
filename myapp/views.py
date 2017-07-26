@@ -2,19 +2,18 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
-from forms import SignUp, LogIn
+from forms import SignUp, LogIn, Upload
 from models import User, SessionToken
 from django.contrib.auth.hashers import make_password, check_password
 
 # Create your views here.
 
 
-
 def check_validation(request):
     if request.COOKIES.get('session_token'):
         session = SessionToken.objects.filter(session_token=request.COOKIES.get('session_token'))
         if session:
-           return session.user
+            return session
     else:
         # return render(request, 'login.html')
         return None
@@ -32,13 +31,13 @@ def signup_view(request):
             password = form.cleaned_data['password']
             user = User(name=name, password=make_password(password), email=email, username=username)
             user.save()
-            return render(request, 'success.html')
+            return redirect('/login/')
         else:
-            username = form.cleaned_data['username ']
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            loginerror2 = username + password + email + name
+            # username = form.cleaned_data['username ']
+            # name = form.cleaned_data['name']
+            # email = form.cleaned_data['email']
+            # password = form.cleaned_data['password']
+            loginerror2 = "Incorrect Input."
             return render(request, 'signup.html', {'loginerror2': loginerror2})
     elif request.method == "GET":
         form = SignUp()
@@ -46,9 +45,9 @@ def signup_view(request):
 
 
 def login_view(request):
-    # check_validation(request)
     loginerror = ""
     if request.method == "POST":
+
         form = LogIn(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -59,7 +58,7 @@ def login_view(request):
                     token = SessionToken(user=user)
                     token.create_token()
                     token.save()
-                    response = redirect('../feed')
+                    response = redirect('../feed/')
                     response.set_cookie(key='session_token', value=token.session_token)
                     return response
                 else:
@@ -75,10 +74,28 @@ def login_view(request):
         form = LogIn()
         return render(request, 'login.html')
 
+
 def feed_view(request):
-    # x = check_validation(request)
-    # if x:
+    # return render(request, 'feed.html')
+    user = check_validation(request)
+
+    if user:
         return render(request, 'feed.html')
-    # else:
-    #     return render(request, 'login.html')
-#
+    else:
+        return redirect('/login/')
+
+
+def upload_view(request):
+    user = check_validation(request)
+
+    if user:
+        if request.method == "GET":
+            form = Upload()
+            return render(request, 'upload.html')
+        elif request.method == "POST":
+            form = Upload(request.POST, request.FILES)
+            if form.is_valid():
+                image = form.cleaned_data.get('image')
+                caption = form.cleaned_data.get('caption')
+    else:
+        return redirect('/login/')

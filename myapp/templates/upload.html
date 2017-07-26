@@ -18,21 +18,19 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-    <body class="greybg">
-<div class = "row">
-  <div class="col-xs-12">
-    <div class = "row">
-      <div class = "col-xs-12" style="float:none;">
-        <div class="col-xs-12">
-          <p class="logo-font text-16" style="font-size:30px;">aperture.</p>
-        </div>
-      </div>
-      <div class="col-xs-12">
-        <p class="text-16"> logged in as <a href = "" class="">Upload</a></p>
-      </div>
+  <body>
+    <div class = "col-xs-12">
+      {% csrf_token %}
+      <center><form method="post" enctype="multipart/form-data" class="loginbox" style="margin-top:200px;">
+        <input id="FileUpload" type="file" accept="image/*" name="image" class="login-btn"  style="background-color:#fff;color:#000; font-size:16px;cursor:pointer;font-weight:normal;"/><br/>
+        <input name="caption" type="text" placeholder="Caption" class="input-default"/>
+        <input class="login-btn" type="submit" value="Upload"/>
+      </form></center>
     </div>
 
-  </div>
-</div>
-    </body>
-</html>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+           <!-- Include all compiled plugins (below), or include individual files as needed -->
+           <script src="js/bootstrap.min.js"></script>
+  </body>
+  </html>
