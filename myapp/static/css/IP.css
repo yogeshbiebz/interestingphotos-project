@@ -10,10 +10,13 @@
 :-moz-placeholder { /* Firefox 18- */
   color: #999;
 }
-body{
+.home{
   background-position: center;
   background: url('img/car2.jpg');
   background-size: cover;
+}
+.dark{
+  background-color: #1f3351
 }
 .greybg{
   background-color: #eee;

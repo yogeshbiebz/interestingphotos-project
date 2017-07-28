@@ -2,9 +2,12 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
-from forms import SignUp, LogIn, Upload
+from forms import SignUp, LogIn, PostForm
 from models import User, SessionToken
 from django.contrib.auth.hashers import make_password, check_password
+from imgurpython import ImgurClient
+from interesting_photos.settings import BASE_DIR
+
 
 # Create your views here.
 
@@ -86,16 +89,31 @@ def feed_view(request):
 
 
 def upload_view(request):
-    user = check_validation(request)
+    usr = check_validation(request)
 
-    if user:
+    if usr:
         if request.method == "GET":
-            form = Upload()
-            return render(request, 'upload.html')
+            form = PostForm()
+            return render(request, 'upload.html', {'form' : form})
         elif request.method == "POST":
-            form = Upload(request.POST, request.FILES)
+            form = PostForm(request.POST, request.FILES)
             if form.is_valid():
-                image = form.cleaned_data.get('image')
-                caption = form.cleaned_data.get('caption')
+                pic = form.cleaned_data['image']
+                title = form.cleaned_data['caption']
+                post = PostForm()
+                post.user = usr
+                post.image = pic
+                post.caption = title
+                post.save()
+
+                path = str(BASE_DIR + post.image.url)
+
+                client = ImgurClient('683c1c4dca9fe29', '77fe734f66c784b86ba973d9cb415280df89ce4e')
+                post.image_url = client.upload_from_path(path, anon=True)['link']
+                post.save()
+                return redirect('feed/')
+            else:
+                return render(request, 'upload.html', {'error_msg' : "error"})
+
     else:
         return redirect('/login/')

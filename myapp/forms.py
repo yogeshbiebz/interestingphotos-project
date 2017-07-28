@@ -13,6 +13,9 @@ class LogIn(forms.ModelForm):
         model = User
         fields = ['username', 'password']
 
-class Upload(forms.ModelForm):
+
+class PostForm(forms.ModelForm):
     class Meta:
         model = Post
+        fields = ['user', 'image', 'caption']
+

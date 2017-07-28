@@ -18,16 +18,18 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body class="dark">
     <div class = "col-xs-12">
-      {% csrf_token %}
+
       <center><form method="post" enctype="multipart/form-data" class="loginbox" style="margin-top:200px;">
-        <input id="FileUpload" type="file" accept="image/*" name="image" class="login-btn"  style="background-color:#fff;color:#000; font-size:16px;cursor:pointer;font-weight:normal;"/><br/>
-        <input name="caption" type="text" placeholder="Caption" class="input-default"/>
+        {% csrf_token %}
+            <p class="text-16">Upload to aperture.</p>
+        <input type="file" accept="image/*" name="image" class="login-btn"  style="background-color:#fff;color:#000; font-size:16px;cursor:pointer;font-weight:normal;"/><br/>
+        <input placeholder="Caption" class="input-default all-curve" rows="3" value="{{ caption }}" name="caption" />
+        <p class="text-16">{{ error_msg }}</p>
         <input class="login-btn" type="submit" value="Upload"/>
       </form></center>
     </div>
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
            <!-- Include all compiled plugins (below), or include individual files as needed -->
