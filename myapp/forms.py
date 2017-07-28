@@ -1,5 +1,5 @@
 from django import forms
-from models import User, Post
+from models import User, Post, LikeModel
 
 
 class SignUp(forms.ModelForm):
@@ -19,3 +19,8 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['user', 'image', 'caption']
 
+
+class LikeForm(forms.ModelForm):
+    class Meta:
+        model = LikeModel
+        fields = ['post']

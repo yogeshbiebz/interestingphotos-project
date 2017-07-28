@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
-from forms import SignUp, LogIn, PostForm
-from models import User, SessionToken
+from forms import *
+from models import *
 from django.contrib.auth.hashers import make_password, check_password
 from imgurpython import ImgurClient
 from interesting_photos.settings import BASE_DIR
@@ -83,7 +83,8 @@ def feed_view(request):
     user = check_validation(request)
 
     if user:
-        return render(request, 'feed.html')
+        posts = Post.objects.all().order_by('created_on')
+        return render(request, 'feed.html',{ 'posts ':posts})
     else:
         return redirect('/login/')
 
@@ -117,3 +118,24 @@ def upload_view(request):
 
     else:
         return redirect('/login/')
+
+
+def like_view(request):
+    user = check_validation(request)
+    if user and request.method == 'POST':
+        form = LikeForm(request.POST)
+        if form.is_valid():
+            post_id = form.cleaned_data.get('post').id
+
+            existing_like = LikeModel.objects.filter(post_id=post_id, user=user).first()
+
+            if not existing_like:
+                LikeModel.objects.create(post_id=post_id, user=user)
+            else:
+                existing_like.delete()
+
+            return redirect('/feed/')
+
+    else:
+        return redirect('/login/')
+

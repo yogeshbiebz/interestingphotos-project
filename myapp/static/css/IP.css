@@ -18,6 +18,9 @@
 .dark{
   background-color: #1f3351
 }
+.light{
+  background-color: #9b9b9b;
+}
 .greybg{
   background-color: #eee;
 }
@@ -25,6 +28,49 @@
   font-size: 14px;
   font-family: helvetica;
   color: #fff;
+}
+.post{
+  width: 500px;
+  background-color: #fff;
+  padding: 5px;
+  margin-top: 2px;
+}
+.post .post_author{
+  color: #ff3399;
+  font-weight: bold;
+  display: block;
+  /*text-align: left;*/
+  padding: 10px;
+  font-size: 20px;
+}
+.post .like{
+  float: left;
+}
+.post .badge{
+  float: right;
+}
+.post .post_img{
+  width: 100%;
+  height: 450px;
+  background: url('img/welcome.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.post .commentform{
+  width: 100%;
+  display: block;
+}
+.comment{
+  text-align: left;
+  padding: 10px 5px;
+}
+.comment .user{
+  font-weight: bold;
+  margin: 0px;
+}
+.comment .commnet_text{
+  margin: 0px;
 }
 .head-text{
   font-size:80px;

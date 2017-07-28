@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from myapp.views import signup_view, login_view, feed_view, upload_view
+from myapp.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^feed/', feed_view),
     url(r'^upload', upload_view),
     url(r'^', login_view),
+    url('like/', like_view)
     # url(r'^upload/$', post),
 ]
 
