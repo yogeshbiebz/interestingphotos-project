@@ -98,6 +98,19 @@
   border-bottom: 1px solid #ccc;
 
 }
+.helptext{
+  font-size: 11px;
+  display: block;
+  text-align: left;
+}
+label{
+  display: block;
+  text-align: left;
+}
+.errorlist{
+  color: red;
+  list-style: none;
+}
 .all-curve{
   border-radius: 3px;
   margin-top: 2px;

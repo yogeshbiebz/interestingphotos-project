@@ -1,11 +1,13 @@
+from models import Post, LikeModel
 from django import forms
-from models import User, Post, LikeModel
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
-class SignUp(forms.ModelForm):
+class SignUpForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['email', 'username', 'name', 'password']
+        fields = ('username','email', 'password1', 'password2', )
 
 
 class LogIn(forms.ModelForm):
@@ -17,7 +19,7 @@ class LogIn(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['user', 'image', 'caption']
+        fields = ['image', 'caption']
 
 
 class LikeForm(forms.ModelForm):

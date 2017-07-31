@@ -23,6 +23,15 @@
       .likebtn{
         background-color:transparent; border:1px solid #000; border-radius:1000px; font-weight:bold; font-size:12px;
       }
+      .logout, .logout:hover{
+        color: #fff;
+        /*background-color: #777;*/
+        /*padding: 5px;*/
+        display: inline-grid;
+        text-decoration: none;
+        font-weight: bold;
+
+      }
     </style>
   </head>
     <body class="light">
@@ -35,7 +44,7 @@
         </div>
       </div>
       <div class="col-xs-12">
-        <p class="text-16 text-center"> logged in as {{ username }} </p>
+        <p class="text-16 text-center">  {{ user.username }} / <a href = "/logout/" class="logout">logout</a> </p>
       </div>
       <div class="col-xs-12">
 <center>

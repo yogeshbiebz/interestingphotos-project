@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Aperture</title>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
             <link rel="stylesheet" href="{% static 'css/IP.css' %}">    <link href="https://fonts.googleapis.com/css?family=Racing+Sans+One" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -17,18 +16,39 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+    input{
+        padding:10px;
+        width: 100%;
+        font-size: 17px;
+        outline: none;
+        margin: 0px;
+        border: none;
+        border: 1px solid #ccc;
+      }
+    </style>
   </head>
   <body class="dark">
     <div class = "col-xs-12">
 
-      <center><form method="post" enctype="multipart/form-data" class="loginbox" style="margin-top:200px;">
+      <!-- <center><form method="post" enctype="multipart/form-data" class="loginbox" style="margin-top:200px;">
         {% csrf_token %}
             <p class="text-16">Upload to aperture.</p>
-        <input type="file" accept="image/*" name="image" class="login-btn"  style="background-color:#fff;color:#000; font-size:16px;cursor:pointer;font-weight:normal;"/><br/>
-        <input placeholder="Caption" class="input-default all-curve" rows="3" value="{{ caption }}" name="caption" />
+        <input type="file" accept="image/*" value="{{ form.image }}" name="image" class="login-btn" /><br/>
+        <input placeholder="Caption" class="input-default all-curve" rows="3" value="{{ form.caption }}" name="caption" />
         <p class="text-16">{{ error_msg }}</p>
         <input class="login-btn" type="submit" value="Upload"/>
-      </form></center>
+      </form></center> -->
+
+
+      <form method="post" enctype="multipart/form-data" class="loginbox" style="margin-top:200px;">
+        {% csrf_token %}
+            <p class="text-16">Upload to aperture.</p>
+            {{ form }}
+        <p class="text-16">{{ error_msg }}</p>
+        <input class="login-btn" type="submit" value="Upload"/>
+      </form>
+
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

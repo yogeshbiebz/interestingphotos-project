@@ -6,29 +6,34 @@ from django.db import models
 import uuid
 
 # Create your models here.
+from django.conf import settings
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
+#
+# class User(models.Model):
+#     email = models.EmailField()
+#     name = models.CharField(max_length=30)
+#     username = models.CharField(max_length=20)
+#     password = models.CharField(max_length=100)
+#     created_on = models.DateTimeField(auto_now_add=True)
+#     updated_on = models.DateTimeField(auto_now=True)
 
-class User(models.Model):
-    email = models.EmailField()
-    name = models.CharField(max_length=30)
-    username = models.CharField(max_length=20)
-    password = models.CharField(max_length=100)
-    created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
-
-
-class SessionToken(models.Model):
-    user = models.ForeignKey(User)
-    session_token = models.CharField(max_length=255)
-    created_on = models.DateTimeField(auto_now_add=True)
-    is_valid = models.BooleanField(default=True)
-
-    def create_token(self):
-        self.session_token = uuid.uuid4()
+#
+# class SessionToken(models.Model):
+#     user = models.OneToOneField(User)
+#     session_token = models.CharField(max_length=255)
+#     created_on = models.DateTimeField(auto_now_add=True)
+#     is_valid = models.BooleanField(default=True)
+#
+#     def create_token(self):
+#         self.session_token = uuid.uuid4()
 
 
 class Post(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, unique=True)
     image = models.FileField(upload_to='user_images')
     caption = models.CharField(max_length=240)
     image_url = models.CharField(max_length=255)
@@ -41,6 +46,7 @@ class Post(models.Model):
     @property
     def comments(self):
         return CommentModel.objects.filter(post=self).order_by('-created_on')
+
 
 class LikeModel(models.Model):
     user = models.ForeignKey(User)

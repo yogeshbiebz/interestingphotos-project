@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from forms import *
 from models import *
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.hashers import make_password, check_password
 from imgurpython import ImgurClient
 from interesting_photos.settings import BASE_DIR
@@ -11,40 +17,29 @@ from interesting_photos.settings import BASE_DIR
 
 # Create your views here.
 
-
-def check_validation(request):
-    if request.COOKIES.get('session_token'):
-        session = SessionToken.objects.filter(session_token=request.COOKIES.get('session_token'))
-        if session:
-            return session
-    else:
-        # return render(request, 'login.html')
-        return None
-
-
 def signup_view(request):
-    loginerror2 = ""
-    form = 0
-    if request.method == "POST":
-        form = SignUp(request.POST)
+    welcome_text = "Aperture Community Welcomes aboard the community. We are glad to have to part of our Aperture. Login to your account and start posting."
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            user = User(name=name, password=make_password(password), email=email, username=username)
+            user = form.save()
+            user.refresh_from_db()  # load the profile instance created by the signal
             user.save()
-            return redirect('/login/')
-        else:
-            # username = form.cleaned_data['username ']
-            # name = form.cleaned_data['name']
-            # email = form.cleaned_data['email']
-            # password = form.cleaned_data['password']
-            loginerror2 = "Incorrect Input."
-            return render(request, 'signup.html', {'loginerror2': loginerror2})
-    elif request.method == "GET":
-        form = SignUp()
-    return render(request, 'signup.html', {'form': form})
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            email = form.cleaned_data.get('email')
+            # send_mail(
+            #     'Welcome to Aperture',
+            #     welcome_text,
+            #     'yogesh.biebz@gmail.com',
+            #     [email],
+            #     fail_silently=False,
+            # )
+            return redirect('../../feed/')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 def login_view(request):
@@ -77,65 +72,34 @@ def login_view(request):
         form = LogIn()
         return render(request, 'login.html')
 
-
+@login_required(login_url='../login/')
 def feed_view(request):
-    # return render(request, 'feed.html')
-    user = check_validation(request)
+    return render(request, 'feed.html')
 
-    if user:
-        posts = Post.objects.all().order_by('created_on')
-        return render(request, 'feed.html',{ 'posts ':posts})
-    else:
-        return redirect('/login/')
-
-
+@login_required(login_url='../login/')
 def upload_view(request):
-    usr = check_validation(request)
-
-    if usr:
-        if request.method == "GET":
-            form = PostForm()
-            return render(request, 'upload.html', {'form' : form})
-        elif request.method == "POST":
-            form = PostForm(request.POST, request.FILES)
-            if form.is_valid():
-                pic = form.cleaned_data['image']
-                title = form.cleaned_data['caption']
-                post = PostForm()
-                post.user = usr
-                post.image = pic
-                post.caption = title
-                post.save()
-
-                path = str(BASE_DIR + post.image.url)
-
-                client = ImgurClient('683c1c4dca9fe29', '77fe734f66c784b86ba973d9cb415280df89ce4e')
-                post.image_url = client.upload_from_path(path, anon=True)['link']
-                post.save()
-                return redirect('feed/')
-            else:
-                return render(request, 'upload.html', {'error_msg' : "error"})
-
-    else:
-        return redirect('/login/')
-
-
-def like_view(request):
-    user = check_validation(request)
-    if user and request.method == 'POST':
-        form = LikeForm(request.POST)
+    if request.method == "GET":
+        form = PostForm()
+        return render(request, 'upload.html', {'form': form})
+    elif request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post_id = form.cleaned_data.get('post').id
+            pic = form.cleaned_data.get('image')
+            title = form.cleaned_data.get('caption')
+            post = PostForm().instance
+            post.user = request.user.id
+            post.image = pic
+            post.caption = title
 
-            existing_like = LikeModel.objects.filter(post_id=post_id, user=user).first()
+            post.save()
 
-            if not existing_like:
-                LikeModel.objects.create(post_id=post_id, user=user)
-            else:
-                existing_like.delete()
+            path = str(BASE_DIR + post.image.url)
 
-            return redirect('/feed/')
-
+            client = ImgurClient('683c1c4dca9fe29', '77fe734f66c784b86ba973d9cb415280df89ce4e')
+            post.image_url = client.upload_from_path(path, anon=True)['link']
+            post.save()
+            return redirect('feed/')
+        else:
+            return render(request, 'upload.html')
     else:
-        return redirect('/login/')
-
+        return render(request, 'upload.html')

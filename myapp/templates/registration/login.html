@@ -18,6 +18,20 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style type="text/css">
+    input{
+        padding:10px;
+        width: 100%;
+        font-size: 17px;
+        outline: none;
+        margin: 0px;
+        border: none;
+        border: 1px solid #ccc;
+      }
+      .wrap{
+        margin-top: 0px;
+      }
+</style>
   </head>
     <body class="home">
 
@@ -33,13 +47,11 @@
           <center class = "wrap">
             <p class="text-center head-text logo-font">aperture.</p>
             <p class="text-center text-16">Biggest online community for Creative Arts.</p>
-            <form class = "loginbox" method="post" id="loginbox">
+            <form class = "loginbox" method="post" id="loginbox" style="background-color:#fff;">
                 {% csrf_token %}
-              <input class = "input-default top-curve" placeholder="Username" name="username" spellcheck="false"   type="text"/>
-              <input class = "input-default bottom-curve" placeholder="Password" name="password" spellcheck="false" type="password" />
-              <p class = "disp_error">{{ loginerror }}</p>
-              <button class="submit login-btn" name = "monu">Log In</button><br/><br/>
-              <a href="/signup/" class="home-link">Create Account</a>
+                {{ form }}
+                <button class="submit login-btn" name = "monu">Log In</button><br/><br/>
+              <a href="../registration/signup/" class="home-link" style="color:#227bad;">Create Account</a>
             </form>
           </center>
         </div>
