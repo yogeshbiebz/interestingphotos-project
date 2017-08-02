@@ -28,7 +28,7 @@
       }
     </style>
   </head>
-  <body class="dark">
+  <body class="light">
     <div class = "col-xs-12">
 
       <!-- <center><form method="post" enctype="multipart/form-data" class="loginbox" style="margin-top:200px;">
@@ -43,12 +43,12 @@
 
       <form method="post" enctype="multipart/form-data" class="loginbox" style="margin-top:200px;">
         {% csrf_token %}
-            <p class="text-16">Upload to aperture.</p>
+            <p class="text-16" style="color:#000;">Upload to aperture.</p>
             {{ form }}
         <p class="text-16">{{ error_msg }}</p>
         <input class="login-btn" type="submit" value="Upload"/>
       </form>
-
+<a href = "/feed/">back</a>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

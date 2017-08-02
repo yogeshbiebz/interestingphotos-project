@@ -21,7 +21,14 @@
     <style type="text/css">
 
       .likebtn{
-        background-color:transparent; border:1px solid #000; border-radius:1000px; font-weight:bold; font-size:12px;
+        background-color:transparent; border: none;font-weight:bold; font-size:12px;
+        text-align: left;
+      }
+      .upvotebtn{
+        border: none;
+        display: run-in;
+        margin-left: 20px;
+        font-size: 12px;
       }
       .logout, .logout:hover{
         color: #fff;
@@ -44,7 +51,7 @@
         </div>
       </div>
       <div class="col-xs-12">
-        <p class="text-16 text-center">  {{ user.username }} / <a href = "/logout/" class="logout">logout</a> </p>
+        <p class="text-16 text-center">  {{ user.username }} / <a href = "/upload/" class="logout">upload</a>  / <a href = "/logout/" class="logout">logout</a> </p>
       </div>
       <div class="col-xs-12">
 <center>
@@ -52,6 +59,8 @@
   <div class="post">
     <p class="post_author">{{ post.user.username }}</p>
     <img src = "{{post.image_url}}" class="post_img"/>
+    <p style="text-align:left;">{{ post.caption }}</p>
+    <p style="text-align:left; font-size:10px;">{{ post.created_on }}</p>
     <form class="like" action="/like/" method="post">
       {% csrf_token %}
       <input type="hidden" name="post" value="{{ post.id }}" />
@@ -62,18 +71,30 @@
          {% endif %}
 
 
-      <span class="badge" style="background-color:#ff3399;"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> {{ post.like_count }}</span>
+      <span class="badge" style="background-color:#5889b2;"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> {{ post.like_count }}</span>
     </form>
-    <form class="commentform">
+    <form class="commentform" method="post" action="/comment/">
+      {% csrf_token %}
       <input type="hidden" name="post" value="{{ post.id }}" />
-      <p class="comment" style="float:right;"><span class="badge" style="background-color:#ff3399;"><i class="fa fa-comment" aria-hidden="true"></i> 1</span></p>
-      <input value="" name="" placeholder="type your comment" class="input-default" value="{{ comment_text }}"/>
+      <input name="comment_text" placeholder="type your comment" class="input-default" value="{{ comment_text }}"/>
     </form>
-    <div class="comment">
-      {% for comment in post.comments %}
-      <p class="user">{{ comment.username }} </p><p class="comment_text">{{ comment_text }}</p>
-      {% endfor %}
-    </div>
+    <div class="comments">
+              {% for comment in post.comments %}
+                  <p><b>{{ comment.user.username }}</b> {{ comment.comment_text }}</p>
+                  <div class="upvote">
+                    <form action="/upvote/" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="comment" value="{{ comment.id }}" />
+                         {% if comment.has_liked %}
+                         <input type="submit" class="upvotebtn" value="Downvote">
+                         {% else %}
+                         <input type="submit" class="upvotebtn" value="Upvote">
+                         {% endif %}
+                  </div>
+
+              {% endfor %}
+          </div>
+
   </div>
 {% endfor %}
 

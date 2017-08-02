@@ -1,4 +1,4 @@
-from models import Post, LikeModel
+from models import Post, LikeModel, CommentModel, Upvote
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -26,3 +26,14 @@ class LikeForm(forms.ModelForm):
     class Meta:
         model = LikeModel
         fields = ['post']
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = CommentModel
+        fields = ['comment_text', 'post']
+
+class UpvoteForm(forms.ModelForm):
+    class Meta:
+        model = Upvote
+        fields = ['comment']

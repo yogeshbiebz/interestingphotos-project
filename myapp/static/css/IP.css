@@ -19,7 +19,7 @@
   background-color: #1f3351
 }
 .light{
-  background-color: #9b9b9b;
+  background-color: #d3e9f0;
 }
 .greybg{
   background-color: #eee;
@@ -36,11 +36,11 @@
   margin-top: 2px;
 }
 .post .post_author{
-  color: #ff3399;
-  font-weight: bold;
+  color: #5889b2;
+  /*font-weight: bold;*/
   display: block;
   /*text-align: left;*/
-  padding: 10px;
+  padding: 0px;
   font-size: 20px;
 }
 .post .like{
@@ -55,21 +55,26 @@
   background: url('img/welcome.png');
   background-size: contain;
   background-position: center;
+  margin-bottom: 5px;
   background-repeat: no-repeat;
 }
 .post .commentform{
   width: 100%;
   display: block;
 }
-.comment{
+.comments{
   text-align: left;
   padding: 10px 5px;
 }
-.comment .user{
+.comments p{
+  margin: 0px;
+  margin-top: 5px;
+}
+.comments .user{
   font-weight: bold;
   margin: 0px;
 }
-.comment .commnet_text{
+.comments .commnet_text{
   margin: 0px;
 }
 .head-text{

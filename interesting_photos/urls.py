@@ -23,9 +23,12 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('/signup/', signup_view),
     url(r'^feed/', feed_view),
+    url(r'^feed/(?P<username>\w+)/', feed_view),
     url(r'^upload', upload_view),
-    url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
-    # url('like/', like_view),
+    url('like/', like_view),
+    url('comment/', comment_view),
+    url('upvote/', upvote_view),
+    url(r'', auth_views.login, name='login', kwargs={'redirect_authenticated_user': True}),
 ]
 
