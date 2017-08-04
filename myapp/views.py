@@ -83,11 +83,8 @@ def login_view(request):
 def feed_view(request, username=None):
     posts = Post.objects.all().order_by('-created_on')
     if username:
-        try:
-            u = User.objects.get(username=username).pk
-            posts = Post.objects.filter(user_id=u).order_by('-created_on')
-        except:
-            print "error bro"
+        u = User.objects.get(username=username).pk
+        posts = Post.objects.filter(user_id=u).order_by('-created_on')
     for post in posts:
         x = User.objects.get(id=request.user.id)
         existing_like = LikeModel.objects.filter(post_id=post.id, user=x).first()
@@ -189,9 +186,3 @@ def upvote_view(request):
     else:
         return redirect('../upload/')
 
-
-def test(request, tag='None'):
-    x = tag
-    post = Post.objects.filter()
-
-    return render(request, 'feed.html')
