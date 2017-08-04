@@ -57,10 +57,17 @@
 <center>
 {% for post in posts%}
   <div class="post">
-    <p class="post_author">{{ post.user.username }}</p>
+    <p class="post_author">
+      {% if post.user.username == request.user.username %}
+      you
+      {% else %}
+      {{ post.user.username }}
+      {% endif %}
+    </p>
     <img src = "{{post.image_url}}" class="post_img"/>
     <p style="text-align:left;">{{ post.caption }}</p>
     <p style="text-align:left; font-size:10px;">{{ post.created_on }}</p>
+    <p style="text-align:left; font-size:10px;">{{ post.tags }}</p>
     <form class="like" action="/like/" method="post">
       {% csrf_token %}
       <input type="hidden" name="post" value="{{ post.id }}" />
@@ -85,7 +92,7 @@
                     <form action="/upvote/" method="post">
                       {% csrf_token %}
                       <input type="hidden" name="comment" value="{{ comment.id }}" />
-                         {% if comment.has_liked %}
+                         {% if comment.has_upvoted %}
                          <input type="submit" class="upvotebtn" value="Downvote">
                          {% else %}
                          <input type="submit" class="upvotebtn" value="Upvote">

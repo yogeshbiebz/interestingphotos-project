@@ -6,22 +6,18 @@ from django.db import models
 import uuid
 
 # Create your models here.
-from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
-
 
 
 class Post(models.Model):
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User)
     image = models.FileField(upload_to='user_images/')
     caption = models.CharField(max_length=240)
     image_url = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     has_liked = False
+    tags = models.CharField(max_length=500, default="aperture")
 
     @property
     def like_count(self):
@@ -51,3 +47,4 @@ class CommentModel(models.Model):
 class Upvote(models.Model):
     user = models.ForeignKey(User)
     comment = models.ForeignKey(CommentModel)
+    created_on = models.DateTimeField(auto_now_add=True)
