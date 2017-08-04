@@ -4,7 +4,7 @@
 ## required libraries
 1. clarifai (2.0.30)
 2. Django (1.11.3)
-3. enum34 (1.1.6) **for python version older than latest**
+3. enum34 (1.1.6) **for python version older than 3.4**
 4. imgurpython (1.1.7)
 5. urllib3 (1.22)
 
